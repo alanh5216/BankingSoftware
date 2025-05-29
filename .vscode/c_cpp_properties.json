@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/homebrew/lib/wx/include/osx_cocoa-unicode-3.2",
+                "/opt/homebrew/include/wx-3.2"
+            ],
+            "defines": [
+                "_FILE_OFFSET_BITS=64",
+                "WXUSINGDLL",
+                "__WXMAC__",
+                "__WXOSX__",
+                "__WXOSX_COCOA__"
+            ],
+            "compilerPath": "/usr/bin/g++", // Replace this if you're using a different g++ version
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-gcc-arm64" // Adjust if you're on an Intel Mac; use "macos-gcc-x64"
+        }
+    ],
+    "version": 4
+}
