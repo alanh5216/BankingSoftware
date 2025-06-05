@@ -1,0 +1,41 @@
+#include "Mainframe.h"
+#include <wx/wx.h>
+
+MainFrame::MainFrame(const wxString& Title) : wxFrame(nullptr, wxID_ANY, Title) {
+    wxImage::AddHandler(new wxPNGHandler);
+
+    wxPanel* panel_top = new wxPanel(this);
+    wxPanel* panel_middle_left = new wxPanel(this);
+    wxPanel* panel_middle_right = new wxPanel(this);
+    wxPanel* panel_bottom = new wxPanel(this);
+
+    wxBoxSizer* sizer_vertical = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer_horizontal = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* sizer_middle_left = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer_middle_right = new wxBoxSizer(wxVERTICAL);
+
+    wxTextCtrl* textCtrl = new wxTextCtrl(panel_middle_right, wxID_ANY, "TextTextTextText", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD);
+    wxBitmap* logo_bitmap = new wxBitmap("Documents/BankingSoftware/logo.png", wxBITMAP_TYPE_PNG);
+    wxBitmapBundle* logo_bundle = new wxBitmapBundle(*logo_bitmap);
+    wxStaticBitmap* logo_sbitmap = new wxStaticBitmap(panel_middle_left, wxID_ANY, *logo_bundle);
+    logo_sbitmap->SetScaleMode(wxStaticBitmap::Scale_AspectFit);
+    sizer_middle_left->Add(logo_sbitmap, 1, wxEXPAND | wxALL, 10);
+    panel_middle_left->SetSizer(sizer_middle_left);
+
+    panel_top           ->SetBackgroundColour(wxColor(50,50,50));
+    panel_middle_left   ->SetBackgroundColour(wxColor(100,100,100));
+    panel_middle_right  ->SetBackgroundColour(wxColor(100,100,100));
+    panel_bottom        ->SetBackgroundColour(wxColor(50,50,50));
+
+    sizer_vertical      ->Add(panel_top,1, wxEXPAND);
+    sizer_horizontal    ->Add(panel_middle_left,1, wxEXPAND);
+    sizer_horizontal    ->Add(panel_middle_right,1, wxEXPAND);
+    sizer_vertical      ->Add(sizer_horizontal,3, wxEXPAND);
+    sizer_vertical      ->Add(panel_bottom,1, wxEXPAND);
+    sizer_middle_right  ->Add(textCtrl, 0, wxALL | wxALIGN_CENTER, 10);
+
+    panel_middle_right->SetSizer(sizer_middle_right);
+
+    this->SetSizer(sizer_vertical);
+    this->Layout();
+}
