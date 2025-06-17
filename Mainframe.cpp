@@ -17,7 +17,8 @@ MainFrame::MainFrame(const wxString& Title) : wxFrame(nullptr, wxID_ANY, Title, 
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* middleSizer = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer* leftSizer = new wxBoxSizer(wxVERTICAL);
-    wxBoxSizer* rightSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* rightSizer_vrtcl = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* rightSizer_hzntl = new wxBoxSizer(wxHORIZONTAL);
 
     // Set background colors
     panel_top->SetBackgroundColour(wxColor(50, 50, 50));
@@ -44,15 +45,22 @@ MainFrame::MainFrame(const wxString& Title) : wxFrame(nullptr, wxID_ANY, Title, 
     wxBitmapBundle logoBundle(logoBitmap);
     wxStaticBitmap* logoWidget = new wxStaticBitmap(panel_middle_left, wxID_ANY, logoBundle);
     logoWidget->SetScaleMode(wxStaticBitmap::Scale_AspectFit);
-    logoWidget->SetMinSize(wxSize(0, 0)); // Let the image scale down
+    logoWidget->SetMinSize(wxSize(0, 0)); // Let the image scale down ***IMPORTANT***
 
     leftSizer->Add(logoWidget, 1, wxEXPAND | wxALL, 10);
     panel_middle_left->SetSizer(leftSizer);
 
     // Right panel content
     wxTextCtrl* textCtrl = new wxTextCtrl(panel_middle_right, wxID_ANY, "TextTextTextText", wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD);
-    rightSizer->Add(textCtrl, 0, wxALL | wxALIGN_CENTER, 10);
-    panel_middle_right->SetSizer(rightSizer);
+    textCtrl->SetMinSize(wxSize(0,0));
+    rightSizer_vrtcl->AddStretchSpacer(3);
+    rightSizer_vrtcl->Add(textCtrl, 4, wxEXPAND); 
+    rightSizer_vrtcl->AddStretchSpacer(3);
+
+    rightSizer_hzntl->AddStretchSpacer(2);
+    rightSizer_hzntl->Add(rightSizer_vrtcl, 6, wxEXPAND);
+    rightSizer_hzntl->AddStretchSpacer(2);
+    panel_middle_right->SetSizer(rightSizer_hzntl);                      
 
     // Assemble middle
     middleSizer->Add(panel_middle_left, 1, wxEXPAND);
